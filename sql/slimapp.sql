@@ -23,47 +23,48 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customers`
+-- Table structure for table `Pelicula`
 --
 
-CREATE TABLE `customers` (
-  `id` int(11) NOT NULL,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `city` varchar(255) NOT NULL,
-  `state` varchar(255) NOT NULL
+CREATE TABLE `Pelicula` (
+  `id_pel` int(10) NOT NULL,
+  `titulo_pel` varchar(100) NOT NULL,
+  `director_pel` varchar(100) NOT NULL,
+  `Productora_pel` varchar(100) NOT NULL,
+  `año_pel` int(10) NOT NULL,
+  `Duracion_pel` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `first_name`, `last_name`, `phone`, `email`, `address`, `city`, `state`) VALUES
-(2, 'Sam', 'Smith', '333-333-3333', 'ssmith@yahoo.com', '33 Birch Rd', 'Miami', 'FL'),
-(3, 'Brad', 'Traversy', '333-333-3333', 'brad@test.com', '333 South st', 'Portland', 'ME');
+INSERT INTO `Pelicula` (`id_pel`, `titulo_pel`, `director_pel`, `productora_pel`, `año_pel`, `duracionMin_pel)`) VALUES
+(10, 'Fast&Furious9', 'JustinLin', 'UniversalStudios', '2020', '135'),
+(20, 'VengadoresEndGame', 'AnthonyRusso&JoeRusso', 'MarvelStudios', '2019', '181'),
+(30, 'JumanjiSiguienteNivel', 'JakeKasdan', 'ColumbiaPictures', '2019', '122'),
+(40, 'SawVIII', 'SpierigBrothers', 'TwistedPictures', '2017', '92'),
+(50, 'Todopoderoso', 'TomShadyac', 'SpyglassEntertainment', '2003', '101');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `customers`
+-- Indexes for table `Pelicula`
 --
-ALTER TABLE `customers`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `Pelicula`
+  ADD PRIMARY KEY (`id_pel`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `customers`
+-- AUTO_INCREMENT for table `Pelicula`
 --
-ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `Pelicula`
+  MODIFY `id_pel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
