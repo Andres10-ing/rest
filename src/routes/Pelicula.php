@@ -36,8 +36,8 @@ $app->get('/api/Pelicula', function(Request $request, Response $response){
 });
 
 // Get Single Pelicula
-$app->get('/api/Pelicula/{id}', function(Request $request, Response $response){
-    $id = $request->getAttribute('id');
+$app->get('/api/Pelicula/{id_pel}', function(Request $request, Response $response){
+    $id = $request->getAttribute('id_pel');
 
     $sql = "SELECT * FROM Pelicula WHERE id_pel = $id_pel";
 
