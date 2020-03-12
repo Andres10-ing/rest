@@ -16,9 +16,9 @@ $app->add(function ($req, $res, $next) {
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 });
 
-// Get All Customers
-$app->get('/api/customers', function(Request $request, Response $response){
-    $sql = "SELECT * FROM customers";
+// Get All Pelicula
+$app->get('/api/Pelicula', function(Request $request, Response $response){
+    $sql = "SELECT * FROM Pelicula";
 
     try{
         // Get DB Object
@@ -27,19 +27,19 @@ $app->get('/api/customers', function(Request $request, Response $response){
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $customers = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $Pelicula = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-        echo json_encode($customers);
+        echo json_encode($Pelicula);
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
 });
 
-// Get Single Customer
-$app->get('/api/customer/{id}', function(Request $request, Response $response){
+// Get Single Pelicula
+$app->get('/api/Pelicula/{id}', function(Request $request, Response $response){
     $id = $request->getAttribute('id');
 
-    $sql = "SELECT * FROM customers WHERE id = $id";
+    $sql = "SELECT * FROM Pelicula WHERE id_pel = $id_pel";
 
     try{
         // Get DB Object
@@ -48,26 +48,25 @@ $app->get('/api/customer/{id}', function(Request $request, Response $response){
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $customer = $stmt->fetch(PDO::FETCH_OBJ);
+        $Pelicula = $stmt->fetch(PDO::FETCH_OBJ);
         $db = null;
-        echo json_encode($customer);
+        echo json_encode($Pelicula);
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
 });
 
-// Add Customer
-$app->post('/api/customer/add', function(Request $request, Response $response){
-    $first_name = $request->getParam('first_name');
-    $last_name = $request->getParam('last_name');
-    $phone = $request->getParam('phone');
-    $email = $request->getParam('email');
-    $address = $request->getParam('address');
-    $city = $request->getParam('city');
-    $state = $request->getParam('state');
+// Add Pelicula
+$app->post('/api/Pelicula/add', function(Request $request, Response $response){
+    $titulo_pel = $request->getParam('titulo_pel');
+    $director_pel = $request->getParam('director_pel');
+    $Productora_pel = $request->getParam('Productora_pel');
+    $year_pel = $request->getParam('year_pel');
+    $Duracion_pel = $request->getParam('Duracion_pel');
+    
 
-    $sql = "INSERT INTO customers (first_name,last_name,phone,email,address,city,state) VALUES
-    (:first_name,:last_name,:phone,:email,:address,:city,:state)";
+    $sql = "INSERT INTO Pelicula (titulo_pel,director_pel,Productora_pel,year_pel,Duracion_pel,city,state) VALUES
+    (:titulo_pel,:director_pel,:Productora_pel,:year_pel,:Duracion_pel,:city,:state)";
 
     try{
         // Get DB Object
@@ -77,43 +76,39 @@ $app->post('/api/customer/add', function(Request $request, Response $response){
 
         $stmt = $db->prepare($sql);
 
-        $stmt->bindParam(':first_name', $first_name);
-        $stmt->bindParam(':last_name',  $last_name);
-        $stmt->bindParam(':phone',      $phone);
-        $stmt->bindParam(':email',      $email);
-        $stmt->bindParam(':address',    $address);
-        $stmt->bindParam(':city',       $city);
-        $stmt->bindParam(':state',      $state);
+        $stmt->bindParam(':titulo_pel', $titulo_pel);
+        $stmt->bindParam(':director_pel',  $director_pel);
+        $stmt->bindParam(':Productora_pel',      $Productora_pel);
+        $stmt->bindParam(':year_pel',      $year_pel);
+        $stmt->bindParam(':Duracion_pel',    $Duracion_pel);
+       
 
         $stmt->execute();
 
-        echo '{"notice": {"text": "Customer Added"}';
+        echo '{"notice": {"text": "Pelicula Added"}';
 
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
 });
 
-// Update Customer
-$app->put('/api/customer/update/{id}', function(Request $request, Response $response){
-    $id = $request->getAttribute('id');
-    $first_name = $request->getParam('first_name');
-    $last_name = $request->getParam('last_name');
-    $phone = $request->getParam('phone');
-    $email = $request->getParam('email');
-    $address = $request->getParam('address');
-    $city = $request->getParam('city');
-    $state = $request->getParam('state');
+// Update Pelicula
+$app->put('/api/Pelicula/update/{id_pel}', function(Request $request, Response $response){
+    $id_pel = $request->getAttribute('id_pel');
+    $titulo_pel = $request->getParam('titulo_pel');
+    $director_pel = $request->getParam('director_pel');
+    $Productora_pel = $request->getParam('Productora_pel');
+    $year_pel = $request->getParam('year_pel');
+    $Duracion_pel = $request->getParam('Duracion_pel');
+    
 
-    $sql = "UPDATE customers SET
-				first_name 	= :first_name,
-				last_name 	= :last_name,
-                phone		= :phone,
-                email		= :email,
-                address 	= :address,
-                city 		= :city,
-                state		= :state
-			WHERE id = $id";
+    $sql = "UPDATE Pelicula SET
+				titulo_pel 	= :titulo_pel,
+				director_pel 	= :director_pel,
+                Productora_pel		= :Productora_pel,
+                year_pel		= :year_pel,
+                Duracion_pel 	= :Duracion_pel,
+			WHERE id_pel = $id_pel";
 
     try{
         // Get DB Object
@@ -123,28 +118,27 @@ $app->put('/api/customer/update/{id}', function(Request $request, Response $resp
 
         $stmt = $db->prepare($sql);
 
-        $stmt->bindParam(':first_name', $first_name);
-        $stmt->bindParam(':last_name',  $last_name);
-        $stmt->bindParam(':phone',      $phone);
-        $stmt->bindParam(':email',      $email);
-        $stmt->bindParam(':address',    $address);
-        $stmt->bindParam(':city',       $city);
-        $stmt->bindParam(':state',      $state);
+        $stmt->bindParam(':titulo_pel', $titulo_pel);
+        $stmt->bindParam(':director_pel',  $director_pel);
+        $stmt->bindParam(':Productora_pel',      $Productora_pel);
+        $stmt->bindParam(':year_pel',      $year_pel);
+        $stmt->bindParam(':Duracion_pel',    $Duracion_pel);
+        
 
         $stmt->execute();
 
-        echo '{"notice": {"text": "Customer Updated"}';
+        echo '{"notice": {"text": "Pelicula Updated"}';
 
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
 });
 
-// Delete Customer
-$app->delete('/api/customer/delete/{id}', function(Request $request, Response $response){
+// Delete Pelicula
+$app->delete('/api/Pelicula/delete/{id_pel}', function(Request $request, Response $response){
     $id = $request->getAttribute('id');
 
-    $sql = "DELETE FROM customers WHERE id = $id";
+    $sql = "DELETE FROM Pelicula WHERE id_pel = $id_pel";
 
     try{
         // Get DB Object
@@ -155,7 +149,7 @@ $app->delete('/api/customer/delete/{id}', function(Request $request, Response $r
         $stmt = $db->prepare($sql);
         $stmt->execute();
         $db = null;
-        echo '{"notice": {"text": "Customer Deleted"}';
+        echo '{"notice": {"text": "Pelicula Deleted"}';
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
